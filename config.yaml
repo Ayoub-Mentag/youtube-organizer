@@ -1,0 +1,22 @@
+# Edit freely. No rebuild needed, just run classify again.
+# Tip: delete data/categories.json after changing categories so everything is re-sorted.
+
+model: qwen2.5:7b      # try qwen2.5:14b if you give Docker 12+ GB of memory
+batch_size: 25         # videos per LLM call
+
+# name: short description (the descriptions help the model a lot)
+categories:
+  AI: "LLMs, machine learning, AI tools, AI news, agents, prompting"
+  Programming: "Coding tutorials, languages, frameworks, tools, DevOps, software careers"
+  System Design: "Architecture, scalability, databases, distributed systems, interview prep"
+  Tech Review: "Gadgets, phones, laptops, apps, product reviews and comparisons"
+  Finance: "Investing, money management, economics, crypto, business, startups"
+  Productivity: "Habits, focus, note-taking, time management, learning methods, self-improvement"
+  Education: "Lectures, courses, languages, history, general explainers"
+  Science: "Physics, biology, space, math, medicine, research explained"
+  Critical Thinking: "Philosophy, logic, psychology, debates, how to think and reason"
+  Politics: "Politics, geopolitics, news analysis, current affairs"
+  Religion: "Islam, religion, spirituality, theology, ethics from a faith perspective"
+  Sport: "Football, fitness, training, matches, athletes"
+  Health: "Nutrition, sleep, mental health, wellbeing"
+  Entertainment: "Music, movies, comedy, gaming, vlogs, general fun"

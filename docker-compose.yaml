@@ -1,0 +1,32 @@
+services:
+  fetch:                      # Phase 1: CSV -> videos.json
+    build: .
+    entrypoint: ["python", "/app/fetch.py"]
+    env_file: .env
+    volumes:
+      - ./data:/data
+
+  classify:                   # Phase 2: videos.json -> categories.json
+    build: .
+    entrypoint: ["python", "/app/classify.py"]
+    environment:
+      # Ollama runs on the host (Ollama app). Override with OLLAMA_HOST in the shell if needed.
+      OLLAMA_HOST: ${OLLAMA_HOST:-http://host.docker.internal:11434}
+    extra_hosts:
+      - "host.docker.internal:host-gateway"   # makes this also work on Linux
+    volumes:
+      - ./data:/data
+      - type: bind
+        source: ./config.yaml
+        target: /app/config.yaml
+        read_only: true
+        bind:
+          create_host_path: false   # fail with a clear error instead of creating a directory
+
+  push:                       # Phase 3: categories.json -> YouTube playlists
+    build: .
+    entrypoint: ["python", "/app/push.py"]
+    volumes:
+      - ./data:/data          # needs client_secret.json in here
+    ports:
+      - "127.0.0.1:8080:8080" # OAuth login redirect, reachable only from your machine

@@ -1,0 +1,14 @@
+# Secrets and personal data: never commit these
+.env
+data/
+client_secret*.json
+token.json
+youtube_token.json
+videos.json
+categories.json
+pushed.json
+*.csv
+
+# Misc
+__pycache__/
+.DS_Store
